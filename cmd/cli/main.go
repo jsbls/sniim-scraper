@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/catalogue"
 	"github.com/everitosan/snimm-scrapper/internal/app/scrapper"
 	"github.com/everitosan/snimm-scrapper/internal/config"
+	"github.com/everitosan/snimm-scrapper/internal/transport/repository"
 	"github.com/sirupsen/logrus"
 )
 
@@ -17,15 +17,22 @@ func main() {
 		logrus.Debug("Debug Log level")
 	}
 
-	mS := scrapper.NewMarketScrapper(config.SNIIM_ADDR)
-	// pS := scrapper.NewProductScrapper(config.SNIIM_ADDR)
-
-	markets, err := mS.RequestFromSource()
+	// Repositories
+	marketRepo, _ := repository.NewMarketFileRepository(config.CATALOGUE_SRC)
+	productRepo, _ := repository.NewProductRepository(config.CATALOGUE_SRC)
+	rContainer := repository.Repository{
+		Market:  marketRepo,
+		Product: productRepo,
+	}
+	// Retrieve and save with repositories
+	err := scrapper.InitCatlogues(config.SNIIM_ADDR, rContainer)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	catalogue.SaveCataloguesFromMarkets(config.SNIIM_ADDR, markets, config.CATALOGUE_SRC)
+	// products := cS.Filters[0].GetResults()
+	// println(len(products))
+	// catalogue.SaveCataloguesFromMarkets(config.SNIIM_ADDR, markets, config.CATALOGUE_SRC)
 
 }
