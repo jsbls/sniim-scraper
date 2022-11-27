@@ -56,7 +56,7 @@ func (cS *catalogueScrapper) RequestFromSource(url string, keyJoined string) err
 	case html := <-successChan:
 		for _, filters := range cS.Filters {
 			for _, filter := range filters {
-				filter.Extract(html, keyJoined)
+				filter.Extract(url, html, keyJoined)
 			}
 		}
 	}

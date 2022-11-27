@@ -7,5 +7,5 @@ import (
 const KeyCatalogueSeparator = "-"
 
 type FilterScrapper interface {
-	Extract(*colly.HTMLElement, string) // should search by selector
+	Extract(string, *colly.HTMLElement, string) // should search by selector
 }

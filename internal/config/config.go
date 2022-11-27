@@ -45,8 +45,6 @@ func LoadConfig() *config {
 	// Read Mongo info
 	mongoUri := os.Getenv(MONGO_URI)
 
-	logrus.Printf("Using %s", snimmAddr)
-
 	return &config{
 		SNIIM_ADDR:    snimmAddr,
 		CATALOGUE_SRC: catalogueDir,

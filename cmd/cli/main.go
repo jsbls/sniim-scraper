@@ -6,6 +6,7 @@ import (
 	"github.com/everitosan/snimm-scrapper/internal/app/scrapper"
 	"github.com/everitosan/snimm-scrapper/internal/config"
 	"github.com/everitosan/snimm-scrapper/internal/transport/repository"
+	"github.com/everitosan/snimm-scrapper/internal/transport/repository/filestorage"
 	"github.com/sirupsen/logrus"
 )
 
@@ -18,11 +19,18 @@ func main() {
 	}
 
 	// Repositories
-	marketRepo, _ := repository.NewMarketFileRepository(config.CATALOGUE_SRC)
-	productRepo, _ := repository.NewProductRepository(config.CATALOGUE_SRC)
+	marketRepo, _ := filestorage.NewMarketFileRepository(config.CATALOGUE_SRC)
+	productRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "product")
+	productSourceRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "productSource")
+	productDestinyRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "productDestiny")
+	pricePresentationRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "pricePresentation")
+
 	rContainer := repository.Repository{
-		Market:  marketRepo,
-		Product: productRepo,
+		Market:            marketRepo,
+		Product:           productRepo,
+		ProductSource:     productSourceRepo,
+		ProductDestiny:    productDestinyRepo,
+		PricePresentation: pricePresentationRepo,
 	}
 	// Retrieve and save with repositories
 	err := scrapper.InitCatlogues(config.SNIIM_ADDR, rContainer)
@@ -30,9 +38,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// products := cS.Filters[0].GetResults()
-	// println(len(products))
-	// catalogue.SaveCataloguesFromMarkets(config.SNIIM_ADDR, markets, config.CATALOGUE_SRC)
 
 }

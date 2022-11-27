@@ -1,11 +1,9 @@
 package scrapper
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/everitosan/snimm-scrapper/internal/app/market"
-	"github.com/everitosan/snimm-scrapper/internal/app/product"
 	"github.com/everitosan/snimm-scrapper/internal/app/utils"
 	"github.com/everitosan/snimm-scrapper/internal/transport/repository"
 	"github.com/sirupsen/logrus"
@@ -13,22 +11,35 @@ import (
 
 func InitCatlogues(baseUrl string, repo repository.Repository) error {
 
-	mS := market.NewMarketScrapper(baseUrl)
-	markets, err := mS.RequestFromSource()
+	markets, err := repo.Market.GetAll()
 
-	if err != nil {
-		return err
+	if err != nil || len(markets) == 0 {
+		mS := market.NewMarketScrapper(baseUrl)
+		markets, err = mS.RequestFromSource()
+		if err != nil {
+			return err
+		}
+		repo.Market.Save(markets)
+	} else {
+		logrus.Println("Markets detected in storage, request is avoid")
 	}
 
-	repo.Market.Save(markets)
-
 	// Scrappers for products
-	pS1 := product.NewProductScrapper("select[id=ddlProducto]")
-	pS2 := product.NewProductScrapper("select[name=prod]")
+	pS1 := utils.NewOptionSelectScrapper("select[id=ddlProducto]")
+	pS2 := utils.NewOptionSelectScrapper("select[name=prod]")
+	// Scrappers for product sources
+	pSS1 := utils.NewOptionSelectScrapper("select[id=ddlOrigen]")
+	// Scrappers for product destinity
+	pSD1 := utils.NewOptionSelectScrapper("select[id=ddlDestino]")
+	// Scrappers for price presentation
+	pP1 := utils.NewOptionSelectScrapper("select[id=ddlPrecios]")
 
 	cS := NewCatalogueScrapper(baseUrl)
 	cS.AddScrapper(ProductType, pS1)
 	cS.AddScrapper(ProductType, pS2)
+	cS.AddScrapper(SourceType, pSS1)
+	cS.AddScrapper(DestinyType, pSD1)
+	cS.AddScrapper(PricePresentationType, pP1)
 
 	okChan := make(chan bool)
 	errorChan := make(chan error)
@@ -54,13 +65,18 @@ func InitCatlogues(baseUrl string, repo repository.Repository) error {
 			logrus.Warn(err)
 		case p := <-okChan:
 			logrus.Debug(p)
-			fmt.Printf("\r %d of %d", routinesCount+1, routines)
+			// fmt.Printf("\r %d of %d", routinesCount+1, routines)
 		}
 		routinesCount += 1
 	}
 
-	products := append(pS1.GetProducts(), pS2.GetProducts()...)
+	// Finaly we store them
+	products := append(pS1.GetOptions(), pS2.GetOptions()...)
 	repo.Product.Save(products)
+
+	repo.ProductSource.Save(pSS1.GetOptions())
+	repo.ProductDestiny.Save(pSD1.GetOptions())
+	repo.PricePresentation.Save(pP1.GetOptions())
 	return nil
 }
 
