@@ -3,6 +3,7 @@ package scrapper
 import (
 	"strings"
 
+	"github.com/everitosan/snimm-scrapper/internal/app/form"
 	"github.com/everitosan/snimm-scrapper/internal/app/market"
 	"github.com/everitosan/snimm-scrapper/internal/app/utils"
 	"github.com/everitosan/snimm-scrapper/internal/transport/repository"
@@ -12,6 +13,7 @@ import (
 func InitCatlogues(baseUrl string, repo repository.Repository) error {
 
 	markets, err := repo.Market.GetAll()
+	inputs := form.NewInputContainer()
 
 	if err != nil || len(markets) == 0 {
 		mS := market.NewMarketScrapper(baseUrl)
@@ -21,38 +23,22 @@ func InitCatlogues(baseUrl string, repo repository.Repository) error {
 		}
 		repo.Market.Save(markets)
 	} else {
-		logrus.Println("Markets detected in storage, request is avoid")
+		logrus.Printf("%d Markets detected in storage, request is avoid", len(markets))
 	}
 
-	// Scrappers for products
-	pS1 := utils.NewOptionSelectScrapper("select[id=ddlProducto]")
-	pS2 := utils.NewOptionSelectScrapper("select[name=prod]")
-	// Scrappers for product sources
-	pSS1 := utils.NewOptionSelectScrapper("select[id=ddlOrigen]")
-	// Scrappers for product destinity
-	pSD1 := utils.NewOptionSelectScrapper("select[id=ddlDestino]")
-	// Scrappers for price presentation
-	pP1 := utils.NewOptionSelectScrapper("select[id=ddlPrecios]")
-
-	cS := NewCatalogueScrapper(baseUrl)
-	cS.AddScrapper(ProductType, pS1)
-	cS.AddScrapper(ProductType, pS2)
-	cS.AddScrapper(SourceType, pSS1)
-	cS.AddScrapper(DestinyType, pSD1)
-	cS.AddScrapper(PricePresentationType, pP1)
-
-	okChan := make(chan bool)
+	okChan := make(chan map[form.SelectCategory][]form.OptionSelect)
 	errorChan := make(chan error)
 
 	routines := 0
 	routinesCount := 0
 
+	// Every category will be requested in a go routine, 8 should be created at the moment of writting this code
 	for _, mrkt := range markets {
 		for _, invtory := range mrkt.Inventories {
 			for _, cat := range invtory.Categories {
 				keys := []string{mrkt.Name, invtory.Name, cat.Name}
 				routines = routines + len(cat.SubCategories)
-				go request(cS, cat, okChan, errorChan, keys)
+				go request(baseUrl, cat, okChan, errorChan, keys)
 			}
 		}
 	}
@@ -63,32 +49,57 @@ func InitCatlogues(baseUrl string, repo repository.Repository) error {
 		select {
 		case err := <-errorChan:
 			logrus.Warn(err)
-		case p := <-okChan:
-			logrus.Debug(p)
+		case inputSelects := <-okChan:
+			for selectType, options := range inputSelects {
+				inputs.AddOptions(selectType, options)
+			}
 			// fmt.Printf("\r %d of %d", routinesCount+1, routines)
 		}
 		routinesCount += 1
 	}
 
-	// Finaly we store them
-	products := append(pS1.GetOptions(), pS2.GetOptions()...)
-	repo.Product.Save(products)
+	// Save to db
+	for selectType, options := range inputs.GetInputs() {
+		switch selectType {
+		case form.ProductType:
+			repo.Product.Save(options)
+		case form.DestinyType:
+			repo.ProductDestiny.Save(options)
+		case form.OriginType:
+			repo.ProductSource.Save(options)
+		case form.PerPriceType:
+			repo.PricePresentation.Save(options)
+		case form.WeekType:
+			repo.Week.Save(options)
+		case form.MonthType:
+			repo.Month.Save(options)
+		case form.YearType:
+			repo.Year.Save(options)
+		}
+	}
 
-	repo.ProductSource.Save(pSS1.GetOptions())
-	repo.ProductDestiny.Save(pSD1.GetOptions())
-	repo.PricePresentation.Save(pP1.GetOptions())
 	return nil
 }
 
-func request(cS *catalogueScrapper, cat market.Catergory, okChan chan bool, errorChan chan error, keys []string) {
+func request(
+	baseUrl string,
+	cat market.Catergory,
+	okChan chan map[form.SelectCategory][]form.OptionSelect,
+	errorChan chan error,
+	keys []string,
+) {
+	req := utils.NewRequester(baseUrl)
 	for _, subCat := range cat.SubCategories {
+		formScrapper := form.NewFormScrapper()
 		key := append(keys, subCat.Name)
-		err := cS.RequestFromSource(subCat.Url, strings.Join(key, utils.KeyCatalogueSeparator))
+		html, err := req.SyncR(subCat.Url)
 
 		if err != nil {
 			errorChan <- err
+		} else {
+			formScrapper.GetFormInputs(html, strings.Join(key, utils.KeyCatalogueSeparator))
+			okChan <- formScrapper.Inputs.GetInputs()
 		}
 
-		okChan <- true
 	}
 }

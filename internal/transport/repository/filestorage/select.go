@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/utils"
+	"github.com/everitosan/snimm-scrapper/internal/app/form"
 )
 
 /*
@@ -31,8 +31,8 @@ func (osR *optionSelectFileRepository) GetGroupName() string {
 	return osR.fileName
 }
 
-func (osR *optionSelectFileRepository) GetAll() ([]utils.OptionSelect, error) {
-	var options []utils.OptionSelect
+func (osR *optionSelectFileRepository) GetAll() ([]form.OptionSelect, error) {
+	var options []form.OptionSelect
 	fileName := filepath.Join(osR.dst, osR.GetGroupName()+".json")
 
 	content, err := os.ReadFile(fileName)
@@ -45,7 +45,7 @@ func (osR *optionSelectFileRepository) GetAll() ([]utils.OptionSelect, error) {
 	return options, err
 }
 
-func (osR *optionSelectFileRepository) Save(content []utils.OptionSelect) error {
+func (osR *optionSelectFileRepository) Save(content []form.OptionSelect) error {
 	fileName := filepath.Join(osR.dst, osR.GetGroupName()+".json")
 
 	str, err := json.Marshal(content)

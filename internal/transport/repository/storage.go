@@ -1,14 +1,17 @@
 package repository
 
 import (
+	"github.com/everitosan/snimm-scrapper/internal/app/form"
 	"github.com/everitosan/snimm-scrapper/internal/app/market"
-	"github.com/everitosan/snimm-scrapper/internal/app/utils"
 )
 
 type Repository struct {
 	Market            market.MarketRepository
-	Product           utils.OptionSelectRepository
-	ProductSource     utils.OptionSelectRepository
-	ProductDestiny    utils.OptionSelectRepository
-	PricePresentation utils.OptionSelectRepository
+	Product           form.OptionSelectRepository
+	ProductSource     form.OptionSelectRepository
+	ProductDestiny    form.OptionSelectRepository
+	PricePresentation form.OptionSelectRepository
+	Week              form.OptionSelectRepository
+	Month             form.OptionSelectRepository
+	Year              form.OptionSelectRepository
 }

@@ -24,6 +24,9 @@ func main() {
 	productSourceRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "productSource")
 	productDestinyRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "productDestiny")
 	pricePresentationRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "pricePresentation")
+	weekRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "week")
+	monthRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "month")
+	yearRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "year")
 
 	rContainer := repository.Repository{
 		Market:            marketRepo,
@@ -31,6 +34,9 @@ func main() {
 		ProductSource:     productSourceRepo,
 		ProductDestiny:    productDestinyRepo,
 		PricePresentation: pricePresentationRepo,
+		Week:              weekRepo,
+		Month:             monthRepo,
+		Year:              yearRepo,
 	}
 	// Retrieve and save with repositories
 	err := scrapper.InitCatlogues(config.SNIIM_ADDR, rContainer)
