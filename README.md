@@ -14,7 +14,7 @@ Para poder trabajar de forma más eficiente, la herramienta debe bajar los *cat�
 | SNIIM_ADDR | Dirección del sitio fuente de la infrmación | http://www.economia-sniim.gob.mx |
 | CATALOGUE_SRC | Nombre de la base de datos o directorio del  filesystem para guardar los catálogos | SNIIM_DATA |
 | DEBUG | Bandera para habilitar el modo debug | false |
-| MONGO_URI | Dirección de la base de datos mongo, solo se intentará conectar si está presente dicha variable. | false |
+| MONGO_URI | Dirección de la base de datos mongo, solo se intentará conectar si está presente dicha variable. | '' |
 
 ## Cli
 
@@ -25,7 +25,7 @@ go build -o sniim-cli ./cmd/cli/main.go
 
 ### Uso
 
-| > Carga de catálogos
+| > *Carga de catálogos*
 
 ```bash
 sniim-cli init

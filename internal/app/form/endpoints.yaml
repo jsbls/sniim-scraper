@@ -1,27 +1,27 @@
 - category: "Mercados Agrícolas"
   urlPrefix: "/Nuevo/Consultas/MercadosNacionales/PreciosDeMercado/Agricolas/"
   subcategories:
-    - name: "Frutasyhortalizas"
+    - name: "Frutas y hortalizas"
       url: "ResultadosConsultaFechaFrutasYHortalizas.aspx"
       formType: 0
     - name: "Flores"
       url: "ResultadosConsultaFechaFlores.aspx"
       formType: 0
-    - name: "Granosbásicos"
+    - name: "Granos básicos"
       url: "ResultadosConsultaFechaGranos.aspx"
       formType: 0
     - name: "Azúcar"
       url: "ResultadosConsultaFechaAzucar.aspx"
       formType: 0
-    - name: "Aceitescomestibles"
+    - name: "Aceites comestibles"
       url: "ResultadosConsultaFechaAceite.aspx"
       formType: 0
-    - name: "Insumosagrícolas"
+    - name: "Insumos agrícolas"
       url: "ResultadosConsultaFechaInsumos.aspx"
       formType: 0
-    - name: "Volúmenesdeingreso"
+    - name: "Volúmenes de ingreso"
       url: "ResultadosConsultaFechaVolumenIngreso.aspx"
       formType: 0
-    - name: "Andéndesubasta(precio/ton)"
+    - name: "Andén de subasta (precio/ton)"
       url: "ResultadosConsultaFechaAndenSubasta.aspx"
       formType: 0

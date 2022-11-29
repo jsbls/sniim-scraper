@@ -10,7 +10,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func InitCatlogues(baseUrl string, repo repository.Repository) error {
+func GetCatlogues(baseUrl string, repo repository.Repository) error {
 
 	markets, err := repo.Market.GetAll()
 	inputs := form.NewInputContainer()

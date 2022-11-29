@@ -101,7 +101,7 @@ func (mrktScrapper *marketScrapper) request(okChan chan []Market, errChan chan e
 			if tdClass != "" && tmpCategory.IsNotEmpty() {
 				td.ForEach("a", func(_ int, a *colly.HTMLElement) {
 					tmpSubMarket := SubCategory{
-						Name: a.Text,
+						Name: strings.TrimSpace(a.Text),
 						Url:  a.Attr("href"),
 					}
 					tmpCategory.SubCategories = append(tmpCategory.SubCategories, tmpSubMarket)
