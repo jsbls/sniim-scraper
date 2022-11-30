@@ -55,3 +55,19 @@ func (osR *optionSelectFileRepository) Save(content []form.OptionSelect) error {
 
 	return saveJsonStrToFile(string(str), fileName)
 }
+
+func (osR *optionSelectFileRepository) GetBySubCategory(subcategory string) ([]form.OptionSelect, error) {
+	var results []form.OptionSelect
+	products, err := osR.GetAll()
+	if err != nil {
+		return results, err
+	}
+
+	for _, product := range products {
+		if product.SubCategory == subcategory {
+			results = append(results, product)
+		}
+	}
+
+	return results, nil
+}

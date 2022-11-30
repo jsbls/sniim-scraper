@@ -57,3 +57,26 @@ func (mR *marketFileRepository) GetAll() ([]market.Market, error) {
 	err = json.Unmarshal(content, &markets)
 	return markets, err
 }
+
+func (mR *marketFileRepository) GetSubCategories() ([]string, error) {
+	var markets []market.Market
+	var subcategories []string
+
+	markets, err := mR.GetAll()
+
+	if err != nil {
+		return subcategories, err
+	}
+
+	for _, market := range markets {
+		for _, inventory := range market.Inventories {
+			for _, cat := range inventory.Categories {
+				for _, subCat := range cat.SubCategories {
+					subcategories = append(subcategories, subCat.Name)
+				}
+			}
+		}
+	}
+
+	return subcategories, nil
+}

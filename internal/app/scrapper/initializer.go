@@ -13,7 +13,6 @@ import (
 func GetCatlogues(baseUrl string, repo repository.Repository) error {
 
 	markets, err := repo.Market.GetAll()
-	inputs := form.NewInputContainer()
 
 	if err != nil || len(markets) == 0 {
 		mS := market.NewMarketScrapper(baseUrl)
@@ -26,7 +25,7 @@ func GetCatlogues(baseUrl string, repo repository.Repository) error {
 		logrus.Printf("%d Markets detected in storage, request is avoid", len(markets))
 	}
 
-	okChan := make(chan map[form.SelectCategory][]form.OptionSelect)
+	okChan := make(chan *form.FormScrapper)
 	errorChan := make(chan error)
 
 	routines := 0
@@ -45,13 +44,19 @@ func GetCatlogues(baseUrl string, repo repository.Repository) error {
 
 	logrus.Printf("Waiting for %d responses", routines)
 
+	inputs := form.NewInputContainer()
+	params := make([]form.FormParams, 0)
+
 	for routinesCount < routines {
 		select {
 		case err := <-errorChan:
 			logrus.Warn(err)
-		case inputSelects := <-okChan:
-			for selectType, options := range inputSelects {
+		case formScrapper := <-okChan:
+			for selectType, options := range formScrapper.Inputs.GetInputs() {
 				inputs.AddOptions(selectType, options)
+			}
+			if formScrapper.Params.Params != nil {
+				params = append(params, formScrapper.Params)
 			}
 			// fmt.Printf("\r %d of %d", routinesCount+1, routines)
 		}
@@ -59,6 +64,8 @@ func GetCatlogues(baseUrl string, repo repository.Repository) error {
 	}
 
 	// Save to db
+	repo.Params.Save(params)
+
 	for selectType, options := range inputs.GetInputs() {
 		switch selectType {
 		case form.ProductType:
@@ -84,7 +91,7 @@ func GetCatlogues(baseUrl string, repo repository.Repository) error {
 func request(
 	baseUrl string,
 	cat market.Catergory,
-	okChan chan map[form.SelectCategory][]form.OptionSelect,
+	okChan chan *form.FormScrapper,
 	errorChan chan error,
 	keys []string,
 ) {
@@ -98,7 +105,7 @@ func request(
 			errorChan <- err
 		} else {
 			formScrapper.GetFormInputs(html, strings.Join(key, utils.KeyCatalogueSeparator))
-			okChan <- formScrapper.Inputs.GetInputs()
+			okChan <- formScrapper
 		}
 
 	}

@@ -11,7 +11,7 @@ Los parámetros son enviados por método *HTTP-GET* a este endpoint /Nuevo/Consu
 
 ## Datos generales
 
-| Filter | Input | UrlParam |
+| Filter | Selector | UrlParam |
 |--|--|--|
 | Producto | select[id*=ddlProducto] | ProductoId |
 | Origen | select[id*=ddlOrigen] | OrigenId |
@@ -20,13 +20,13 @@ Los parámetros son enviados por método *HTTP-GET* a este endpoint /Nuevo/Consu
 
 ## Reportes diarios
 
-| Filter | Input | UrlParam |
+| Filter | Selector | UrlParam |
 |--|--|--|
 | Desde | -- | fechainicio | 
 | Hasta | -- | fechafinal |
 
 ## Reportes semanales
-| Filter | Input | UrlParam |
+| Filter | Selector | UrlParam |
 |--|--|--|
 | Semana | select[id=ddlSemanaSemanal] | Semana |
 | Mes | select[id=ddlMesSemanal] | Mes |
