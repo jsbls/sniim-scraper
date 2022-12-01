@@ -1,6 +1,12 @@
 package consult
 
-import "github.com/sirupsen/logrus"
+import (
+	"time"
+
+	"github.com/sirupsen/logrus"
+)
+
+const Now = "now"
 
 type Consult struct {
 	Category    string            `json:"category"`    // Category for the consult
@@ -30,7 +36,14 @@ func (c *Consult) ToUrl() string {
 
 	query := "?"
 	for key, val := range c.Params {
-		query = query + key + "=" + val + "&"
+		paramVal := val
+
+		if val == Now {
+			nowDate := time.Now()
+			paramVal = nowDate.Format("02/01/2006")
+		}
+
+		query = query + key + "=" + paramVal + "&"
 	}
 	query = query[0 : len(query)-1]
 

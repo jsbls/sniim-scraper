@@ -1,25 +1,30 @@
 package create
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/everitosan/snimm-scrapper/internal/app/consult"
 	"github.com/sirupsen/logrus"
 )
 
-func askDates(consult *consult.Consult) {
+func askDates(consultR *consult.Consult) {
 	var startDate, endDate string
 
-	startDate, _ = getDatePrompt("Fecha de inicio")
-	endDate, _ = getDatePrompt("Fecha de fin")
+	startDate, _ = getDatePrompt(fmt.Sprintf("Fecha de inicio (dd/MM/AAAA | %s)", consult.Now))
 
-	start, _ := time.Parse("02/01/2006", startDate)
-	end, _ := time.Parse("02/01/2006", endDate)
+	if startDate != consult.Now {
+		endDate, _ = getDatePrompt("Fecha de fin (dd/MM/AAAA)")
+		start, _ := time.Parse("02/01/2006", startDate)
+		end, _ := time.Parse("02/01/2006", endDate)
 
-	if start.Unix() > end.Unix() {
-		logrus.Fatal("Fecha de fin no puede ser mayor a fecha de inicio")
+		if start.Unix() > end.Unix() {
+			logrus.Fatal("Fecha de fin no puede ser mayor a fecha de inicio")
+		}
+	} else {
+		endDate = consult.Now
 	}
 
-	consult.AddParameter("fechainicio", startDate)
-	consult.AddParameter("fechafinal", endDate)
+	consultR.AddParameter("fechainicio", startDate)
+	consultR.AddParameter("fechafinal", endDate)
 }

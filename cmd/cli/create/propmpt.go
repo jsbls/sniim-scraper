@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/everitosan/snimm-scrapper/internal/app/consult"
 	"github.com/manifoldco/promptui"
 )
 
@@ -20,6 +21,10 @@ func getOptionsPrompt(label string, options []string) (index int, result string,
 }
 
 func validateDate(date string) error {
+	if date == consult.Now {
+		return nil
+	}
+
 	_, err := time.Parse("02/01/2006", date)
 	if err != nil {
 		return fmt.Errorf("inavlid date %v", err)

@@ -2,7 +2,7 @@
 
 Este es un scrapper que pretende obtener los datos de precios sobre algunos productos como frutos y carnes en México.
 
-La estructura de este proyecto está basada en el [post de Medium](https://medium.com/geekculture/how-to-structure-your-project-in-golang-the-backend-developers-guide-31be05c6fdd9)
+La estructura de este proyecto está basada en el [post](https://medium.com/geekculture/how-to-structure-your-project-in-golang-the-backend-developers-guide-31be05c6fdd9)
 
 Para poder trabajar de forma más eficiente, la herramienta debe bajar los *catálogos* antes de poder ser usada.
 
@@ -29,4 +29,12 @@ go build -o sniim-cli ./cmd/cli/main.go
 
 ```bash
 sniim-cli init
+```
+
+
+
+| > *Crea un registro de request*
+
+```bash
+sniim-cli create-request
 ```
