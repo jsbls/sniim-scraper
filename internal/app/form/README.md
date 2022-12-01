@@ -1,5 +1,5 @@
 # Formulario 0
-Los inputs están situadoe dentro de tablas.  
+Los inputs están situados dentro de tablas.  
 Las tablas pueden tener los siguientes ids.
 - table#[tblDatos]
 - table#[tblFiltro]

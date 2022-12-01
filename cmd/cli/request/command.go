@@ -14,7 +14,7 @@ const allFlag = "all"
 const listFlag = "list"
 const indexFlag = "index"
 
-func Command(sniimAddr string, consultRepo consult.ConsultRepository) *cobra.Command {
+func Command(sniimAddr string, consultRepo consult.ConsultRepository, responseRepo consult.ConsultResponseRepository) *cobra.Command {
 	requestCommand := &cobra.Command{
 		Use:   "request",
 		Short: "Request information",
@@ -29,7 +29,17 @@ func Command(sniimAddr string, consultRepo consult.ConsultRepository) *cobra.Com
 			if index != -1 {
 				if int(index) < len(consults) {
 					selectedConsult := consults[index]
-					consult.Scrap(sniimAddr, selectedConsult)
+					results, err := consult.Scrap(sniimAddr, selectedConsult)
+					if err != nil {
+						logrus.Fatal(err)
+					}
+
+					err = responseRepo.Save(results)
+
+					if err != nil {
+						logrus.Fatal(err)
+					}
+
 				} else {
 					logrus.Warn("Indice inválido")
 				}

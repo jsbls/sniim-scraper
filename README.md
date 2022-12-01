@@ -38,3 +38,10 @@ sniim-cli init
 ```bash
 sniim-cli create-request
 ```
+
+
+| > *Realiza una consulta y guarda el resultado*
+
+```bash
+sniim-cli request -i [índice]
+```

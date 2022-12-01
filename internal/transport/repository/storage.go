@@ -10,6 +10,7 @@ type Repository struct {
 	Market            market.MarketRepository
 	Params            form.ParamsRepository
 	Consult           consult.ConsultRepository
+	ConsultResponse   consult.ConsultResponseRepository
 	Product           form.ProductRepository
 	ProductSource     form.OptionSelectRepository
 	ProductDestiny    form.OptionSelectRepository

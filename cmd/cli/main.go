@@ -23,6 +23,7 @@ func main() {
 	marketRepo, _ := filestorage.NewMarketFileRepository(config.CATALOGUE_SRC)
 	paramsRepo, _ := filestorage.NewParamsFileRepository(config.CATALOGUE_SRC, "params")
 	consultRepo, _ := filestorage.NewConsultFileRepository(config.CATALOGUE_SRC, "consults")
+	consultResponseRepo, _ := filestorage.NewConsultResponseFileRepository(config.CATALOGUE_SRC, "consultsResponses")
 
 	productRepo, _ := filestorage.NewProductFileRepository(config.CATALOGUE_SRC, "product")
 	productSourceRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "productSource")
@@ -36,6 +37,7 @@ func main() {
 		Market:            marketRepo,
 		Params:            paramsRepo,
 		Consult:           consultRepo,
+		ConsultResponse:   consultResponseRepo,
 		Product:           productRepo,
 		ProductSource:     productSourceRepo,
 		ProductDestiny:    productDestinyRepo,
@@ -49,6 +51,6 @@ func main() {
 
 	rootCmd.AddCommand(initial.Command(config.SNIIM_ADDR, rContainer))
 	rootCmd.AddCommand(create.Command(rContainer))
-	rootCmd.AddCommand(request.Command(config.SNIIM_ADDR, rContainer.Consult))
+	rootCmd.AddCommand(request.Command(config.SNIIM_ADDR, rContainer.Consult, rContainer.ConsultResponse))
 	rootCmd.Execute()
 }

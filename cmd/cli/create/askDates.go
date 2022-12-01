@@ -26,5 +26,8 @@ func askDates(consultR *consult.Consult) {
 	}
 
 	consultR.AddParameter("fechainicio", startDate)
+	consultR.AddTextParameter("Desde", startDate)
+
 	consultR.AddParameter("fechafinal", endDate)
+	consultR.AddTextParameter("Hasta", endDate)
 }

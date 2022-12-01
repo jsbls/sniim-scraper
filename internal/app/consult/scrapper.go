@@ -2,8 +2,9 @@ package consult
 
 import (
 	_ "embed"
-	"fmt"
 
+	"github.com/everitosan/snimm-scrapper/internal/app/utils"
+	"github.com/gocolly/colly"
 	"gopkg.in/yaml.v3"
 )
 
@@ -33,13 +34,30 @@ func getUrl(consult Consult) (url string, err error) {
 	return url, nil
 }
 
-func Scrap(sniimAddr string, consult Consult) error {
+func Scrap(sniimAddr string, consult Consult) ([]map[string]string, error) {
+	var registers []map[string]string
+
 	subUrl, err := getUrl(consult)
 	if err != nil {
-		return err
+		return registers, err
 	}
 	url := sniimAddr + subUrl
 
-	fmt.Println(url)
-	return nil
+	requester := utils.NewRequester(sniimAddr)
+
+	html, err := requester.SyncR(url)
+	if err != nil {
+		return registers, err
+	}
+
+	html.ForEach("table", func(_ int, table *colly.HTMLElement) {
+		tableId := table.Attr("id")
+
+		switch tableId {
+		case "tblResultados":
+			registers = Table0Scrapper(table, consult)
+		}
+	})
+
+	return registers, nil
 }

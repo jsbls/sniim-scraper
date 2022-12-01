@@ -1,15 +1,15 @@
 package form
 
-type SelectCategory int64
+type SelectCategory string
 
 const (
-	ProductType SelectCategory = iota
-	OriginType
-	DestinyType
-	PerPriceType
-	WeekType
-	MonthType
-	YearType
+	ProductType  SelectCategory = "Producto"
+	OriginType   SelectCategory = "Origen"
+	DestinyType  SelectCategory = "Destino"
+	PerPriceType SelectCategory = "Precio por"
+	WeekType     SelectCategory = "Semana"
+	MonthType    SelectCategory = "Mes"
+	YearType     SelectCategory = "Año"
 )
 
 type inputContainer struct {

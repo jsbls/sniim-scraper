@@ -1,6 +1,7 @@
 package create
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/everitosan/snimm-scrapper/internal/app/consult"
@@ -8,7 +9,7 @@ import (
 	"github.com/everitosan/snimm-scrapper/internal/transport/repository"
 )
 
-func askInputs(rContainer repository.Repository, consult *consult.Consult) (bool) {
+func askInputs(rContainer repository.Repository, consult *consult.Consult) bool {
 
 	subCategoryChoosen := consult.SubCategory
 
@@ -60,6 +61,7 @@ func askInputs(rContainer repository.Repository, consult *consult.Consult) (bool
 			log.Fatal(err)
 		}
 		consult.AddParameter(param.UrlParam, selectOptions[index].Id)
+		consult.AddTextParameter(fmt.Sprint(param.Filter), selectOptions[index].Name)
 	}
 
 	return dateDetected

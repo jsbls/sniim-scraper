@@ -20,20 +20,25 @@ func NewRequester(url string) *requester {
 }
 
 func (r *requester) SyncR(url string) (e *colly.HTMLElement, err error) {
-
+	currentAttempts := 0
 	finalUrl := r.fixUrl(url)
 	successChan := make(chan *colly.HTMLElement)
 	errorChan := make(chan error)
 
-	go request(finalUrl, successChan, errorChan)
+	for currentAttempts < 5 {
 
-	select {
-	case err = <-errorChan:
-		return e, err
-	case html := <-successChan:
-		return html, err
+		go request(finalUrl, successChan, errorChan)
+
+		select {
+		case err = <-errorChan:
+			currentAttempts += 1
+			logrus.Warnf("Attempt %d failed for %s", currentAttempts, url)
+		case html := <-successChan:
+			return html, err
+		}
 	}
 
+	return e, err
 }
 
 // Help fix the url when iframe detected
