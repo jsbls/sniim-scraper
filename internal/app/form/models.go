@@ -11,7 +11,7 @@ type OptionSelect struct {
 	Inventory   string   `json:"inventory"`   // Inventory where the product belongs
 	Category    string   `json:"category"`    // Category where the product belongs
 	SubCategory string   `json:"subcategory"` // Subcategory where the procust belongs
-	FormType    formType `json:"formType"`    // Form Type it shloud use
+	FormType    FormType `json:"formType"`    // Form Type it shloud use
 }
 
 /*
@@ -31,11 +31,11 @@ type FormInput struct {
 type FormParams struct {
 	Category    string      `json:"category"`    // Category where de params belongs
 	SubCategory string      `json:"subcategory"` // Subcategory where de params belongs
-	FormType    formType    `json:"formType"`    // Form Type where de params belongs
+	FormType    FormType    `json:"formType"`    // Form Type where de params belongs
 	Params      []FormInput `json:"params"`      // Params of the form
 }
 
-func NewFormParams(keys []string, formType formType) *FormParams {
+func NewFormParams(keys []string, formType FormType) *FormParams {
 	return &FormParams{
 		Category:    keys[2],
 		SubCategory: keys[3],

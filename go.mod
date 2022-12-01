@@ -32,4 +32,5 @@ require (
 	golang.org/x/term v0.2.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

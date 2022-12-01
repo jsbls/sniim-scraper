@@ -1,4 +1,4 @@
-package command
+package initial
 
 import (
 	"github.com/everitosan/snimm-scrapper/internal/app/scrapper"
@@ -6,11 +6,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func InitCommand(sniimAddr string, rContainer repository.Repository) *cobra.Command {
+func Command(sniimAddr string, rContainer repository.Repository) *cobra.Command {
 	return &cobra.Command{
 		Use:   "init",
-		Short: "Retrieve information from source and create catalogues",
-		Long:  "",
+		Short: "Create catalogues",
+		Long:  "Retrieve information from source and create catalogues",
 		Run: func(cmd *cobra.Command, args []string) {
 			scrapper.InitCatalogues(sniimAddr, rContainer)
 		},

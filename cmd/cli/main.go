@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/everitosan/snimm-scrapper/cmd/cli/command"
 	"github.com/everitosan/snimm-scrapper/cmd/cli/create"
+	"github.com/everitosan/snimm-scrapper/cmd/cli/initial"
+	"github.com/everitosan/snimm-scrapper/cmd/cli/request"
 	"github.com/everitosan/snimm-scrapper/internal/config"
 	"github.com/everitosan/snimm-scrapper/internal/transport/repository"
 	"github.com/everitosan/snimm-scrapper/internal/transport/repository/filestorage"
@@ -46,7 +47,8 @@ func main() {
 
 	rootCmd := &cobra.Command{Use: "snimm-cli"}
 
-	rootCmd.AddCommand(command.InitCommand(config.SNIIM_ADDR, rContainer))
+	rootCmd.AddCommand(initial.Command(config.SNIIM_ADDR, rContainer))
 	rootCmd.AddCommand(create.Command(rContainer))
+	rootCmd.AddCommand(request.Command(config.SNIIM_ADDR, rContainer.Consult))
 	rootCmd.Execute()
 }

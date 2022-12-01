@@ -1,12 +1,33 @@
 package consult
 
 import (
+	"fmt"
 	"time"
 
+	"github.com/everitosan/snimm-scrapper/internal/app/form"
 	"github.com/sirupsen/logrus"
 )
 
 const Now = "now"
+
+/*
+* The following structs are defined for the endpoints yaml
+ */
+
+type SubCategoryEndopoint struct {
+	Name     string        `json:"name"`
+	Url      string        `json:"url"`
+	FormType form.FormType `json:"formType"`
+}
+type CategoryEndpoint struct {
+	Category      string                 `json:"category"`
+	UrlPrefix     string                 `json:"urlprefix"`
+	Subcategories []SubCategoryEndopoint `json:"subcategories"`
+}
+
+/*
+* Consult is a request that should be made
+ */
 
 type Consult struct {
 	Category    string            `json:"category"`    // Category for the consult
@@ -32,8 +53,17 @@ func (c *Consult) AddParameter(key, val string) {
 	}
 }
 
-func (c *Consult) ToUrl() string {
+func (c *Consult) String() string {
+	str := fmt.Sprintf("%s/%s <=", c.Category, c.SubCategory)
+	for key, val := range c.Params {
+		str = str + " " + key + "=" + val + " & "
+	}
 
+	str = str[0 : len(str)-2]
+	return str
+}
+
+func (c *Consult) ToUrl() string {
 	query := "?"
 	for key, val := range c.Params {
 		paramVal := val
@@ -46,6 +76,5 @@ func (c *Consult) ToUrl() string {
 		query = query + key + "=" + paramVal + "&"
 	}
 	query = query[0 : len(query)-1]
-
 	return query
 }

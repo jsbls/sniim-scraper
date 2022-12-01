@@ -8,10 +8,10 @@ import (
 )
 
 // Enums
-type formType int64
+type FormType int64
 
 const (
-	Form0Type formType = iota
+	Form0Type FormType = iota
 )
 
 /*

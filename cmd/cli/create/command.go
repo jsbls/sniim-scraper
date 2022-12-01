@@ -10,8 +10,8 @@ import (
 func Command(rContainer repository.Repository) *cobra.Command {
 	return &cobra.Command{
 		Use:   "create-request",
-		Short: "Create request specification by interactive cli",
-		Long:  "",
+		Short: "Define a request",
+		Long:  "Define a request specification by interactive cli",
 		Run: func(cmd *cobra.Command, args []string) {
 
 			// Ask category and subcategory

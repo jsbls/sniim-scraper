@@ -1,5 +1,5 @@
 - category: "Mercados Agrícolas"
-  urlPrefix: "/Nuevo/Consultas/MercadosNacionales/PreciosDeMercado/Agricolas/"
+  urlprefix: "/Nuevo/Consultas/MercadosNacionales/PreciosDeMercado/Agricolas/"
   subcategories:
     - name: "Frutas y hortalizas"
       url: "ResultadosConsultaFechaFrutasYHortalizas.aspx"
