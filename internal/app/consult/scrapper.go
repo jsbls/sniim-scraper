@@ -34,13 +34,14 @@ func getUrl(consult Consult) (url string, err error) {
 	return url, nil
 }
 
-func Scrap(sniimAddr string, consult Consult) ([]map[string]string, error) {
-	var registers []map[string]string
+func Scrap(sniimAddr string, consult Consult) ([][]RegisterConcept, error) {
+	var registers [][]RegisterConcept
 
 	subUrl, err := getUrl(consult)
 	if err != nil {
 		return registers, err
 	}
+
 	url := sniimAddr + subUrl
 
 	requester := utils.NewRequester(sniimAddr)

@@ -33,7 +33,7 @@ type Consult struct {
 	Category    string            `json:"category"`    // Category for the consult
 	SubCategory string            `json:"subcategory"` // Subcategory for the consult
 	Params      map[string]string `json:"params"`      // Parameters for the requests
-	TextParams  map[string]string `json:"textParams"`  // Parameters in human language for the requests
+	TextParams  []RegisterConcept `json:"textParams"`  // Parameters in human language for the requests, the slice is to maintain the order
 }
 
 func NewConsult(cat, subcat string) *Consult {
@@ -41,7 +41,7 @@ func NewConsult(cat, subcat string) *Consult {
 		Category:    cat,
 		SubCategory: subcat,
 		Params:      make(map[string]string),
-		TextParams:  make(map[string]string),
+		TextParams:  make([]RegisterConcept, 0),
 	}
 }
 
@@ -56,33 +56,29 @@ func (c *Consult) AddParameter(key, val string) {
 }
 
 func (c *Consult) AddTextParameter(key, val string) {
-	_, exists := c.TextParams[key]
-
-	if !exists {
-		c.TextParams[key] = val
-	} else {
-		logrus.Warnf("Duplicated key %s", key)
-	}
+	newRegister := RegisterConcept{Name: key, Value: val}
+	c.TextParams = append(c.TextParams, newRegister)
 }
 
+// this funcionn is used when we want to generate a result Row (after a consult)
 func (c *Consult) GetParamsAsConcepts() []RegisterConcept {
 	concepts := make([]RegisterConcept, 0, len(c.TextParams))
 
-	for key, val := range c.TextParams {
-		realValue := val
+	for _, registerConcept := range c.TextParams {
+		realValue := registerConcept.Value
 
-		if val == Now {
+		if registerConcept.Value == Now {
 			realValue = time.Now().Format("02/01/2006")
 		}
-		concepts = append(concepts, RegisterConcept{Name: key, Value: realValue})
+		concepts = append(concepts, RegisterConcept{Name: registerConcept.Name, Value: realValue})
 	}
 	return concepts
 }
 
 func (c *Consult) String() string {
 	str := fmt.Sprintf("%s/%s \n\t ▶️ [", c.Category, c.SubCategory)
-	for key, val := range c.TextParams {
-		str = str + " " + key + "=" + val + ", "
+	for _, registerConcept := range c.TextParams {
+		str = str + registerConcept.Name + "=" + registerConcept.Value + ", "
 	}
 
 	str = str[0 : len(str)-2]

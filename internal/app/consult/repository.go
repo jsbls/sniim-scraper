@@ -6,5 +6,5 @@ type ConsultRepository interface {
 }
 
 type ConsultResponseRepository interface {
-	Save([]map[string]string) error
+	Save([][]RegisterConcept) error
 }

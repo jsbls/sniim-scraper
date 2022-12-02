@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+
+	"github.com/everitosan/snimm-scrapper/internal/app/consult"
 )
 
 type consultResponseFileRepository struct {
@@ -21,13 +23,13 @@ func NewConsultResponseFileRepository(dst, fileName string) (*consultResponseFil
 	return &repo, err
 }
 
-func (cRR *consultResponseFileRepository) Save(content []map[string]string) error {
-	var all []map[string]string
+func (cRR *consultResponseFileRepository) Save(content [][]consult.RegisterConcept) error {
+	var all [][]consult.RegisterConcept
 	fileName := filepath.Join(cRR.dst, cRR.fileName+".json")
 
 	all, err := cRR.GetAll()
 	if err != nil {
-		all = make([]map[string]string, 0, 1)
+		all = make([][]consult.RegisterConcept, 0, 1)
 	}
 
 	all = append(all, content...)
@@ -41,8 +43,8 @@ func (cRR *consultResponseFileRepository) Save(content []map[string]string) erro
 
 }
 
-func (cRR *consultResponseFileRepository) GetAll() ([]map[string]string, error) {
-	var formParams []map[string]string
+func (cRR *consultResponseFileRepository) GetAll() ([][]consult.RegisterConcept, error) {
+	var formParams [][]consult.RegisterConcept
 	fileName := filepath.Join(cRR.dst, cRR.fileName+".json")
 
 	content, err := os.ReadFile(fileName)

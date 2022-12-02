@@ -1,6 +1,8 @@
 package form
 
 import (
+	"strings"
+
 	"github.com/gocolly/colly"
 	"github.com/sirupsen/logrus"
 )
@@ -29,6 +31,22 @@ func newForm0Inputs() *form0Inputs {
 
 }
 
+// Const map for months
+var months = map[string]string{
+	"enero":      "1",
+	"febrero":    "2",
+	"marzo":      "3",
+	"abril":      "4",
+	"mayo":       "5",
+	"junio":      "6",
+	"julio":      "7",
+	"agosto":     "8",
+	"septiembre": "9",
+	"octubre":    "10",
+	"noviembre":  "11",
+	"diciembre":  "12",
+}
+
 func From0Srapper(container *colly.HTMLElement, keys []string, f *FormScrapper) {
 
 	form0 := newForm0Inputs()
@@ -53,9 +71,16 @@ func From0Srapper(container *colly.HTMLElement, keys []string, f *FormScrapper) 
 		}
 
 		sel.ForEach("option", func(_ int, option *colly.HTMLElement) {
+			value := option.Attr("value")
+			if selectCat == MonthType {
+				month, exists := months[strings.ToLower(value)]
+				if exists {
+					value = month
+				}
+			}
 			p := OptionSelect{
 				Name:        option.Text,
-				Id:          option.Attr("value"),
+				Id:          value,
 				Market:      keys[0],
 				Inventory:   keys[1],
 				Category:    keys[2],

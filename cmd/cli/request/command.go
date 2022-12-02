@@ -1,8 +1,6 @@
 package request
 
 import (
-	"fmt"
-
 	_ "embed"
 
 	"github.com/everitosan/snimm-scrapper/internal/app/consult"
@@ -11,8 +9,8 @@ import (
 )
 
 const allFlag = "all"
-const listFlag = "list"
 const indexFlag = "index"
+const saveFlag = "save"
 
 func Command(sniimAddr string, consultRepo consult.ConsultRepository, responseRepo consult.ConsultResponseRepository) *cobra.Command {
 	requestCommand := &cobra.Command{
@@ -21,47 +19,56 @@ func Command(sniimAddr string, consultRepo consult.ConsultRepository, responseRe
 		Long:  "Request information from a consult register",
 		Run: func(cmd *cobra.Command, args []string) {
 
-			list, _ := cmd.Flags().GetBool(listFlag)
 			index, _ := cmd.Flags().GetInt32(indexFlag)
-			// all, _ := cmd.Flags().GetBool(allFlag)
+			shouldSave, _ := cmd.Flags().GetBool(saveFlag)
 			consults, err := consultRepo.GetAll()
 
-			if index != -1 {
-				if int(index) < len(consults) {
-					selectedConsult := consults[index]
-					results, err := consult.Scrap(sniimAddr, selectedConsult)
-					if err != nil {
-						logrus.Fatal(err)
-					}
-
-					err = responseRepo.Save(results)
-
-					if err != nil {
-						logrus.Fatal(err)
-					}
-
-				} else {
-					logrus.Warn("Indice inválido")
-				}
-				return
+			if err != nil {
+				logrus.Fatal(err)
 			}
 
-			if list {
+			switch {
+			case index != -1:
+				/*
+				* Case for makinng a single request
+				 */
+				if int(index) >= len(consults) {
+					logrus.Warnf("No existe consulta número %d", index)
+					return
+				}
+
+				selectedConsult := consults[index]
+				results, err := consult.Scrap(sniimAddr, selectedConsult)
+
 				if err != nil {
 					logrus.Fatal(err)
 				}
-				for index, consult := range consults {
-					fmt.Printf("(%d) - %s\n", index, consult.String())
+
+				if len(results) == 0 {
+					logrus.Warn("No hay resultados de la búsqueda.")
+					return
+				}
+
+				if shouldSave {
+					err = responseRepo.Save(results)
+				} else {
+
+					PrintResultTable(results)
+				}
+
+				if err != nil {
+					logrus.Fatal(err)
 				}
 				return
+
 			}
 
 		},
 	}
 
-	requestCommand.Flags().BoolP(listFlag, "l", false, "List all requests")
 	requestCommand.Flags().Int32P(indexFlag, "i", -1, "Request consult by index")
 	requestCommand.Flags().BoolP(allFlag, "a", false, "Request all consults registered")
+	requestCommand.Flags().BoolP(saveFlag, "s", false, "Save the results of a request")
 
 	return requestCommand
 }
