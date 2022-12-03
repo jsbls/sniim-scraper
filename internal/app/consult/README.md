@@ -1,5 +1,7 @@
 # Resultados 0
-Los resultados de la consulta se encuentran en una tablas.
+Los resultados de la consulta se encuentran en una tablas.  
+
+Los parámetros son enviados por método *HTTP-GET* a este endpoint /Nuevo/Consultas/MercadosNacionales/PreciosDeMercado/Agricolas/
 
 ## Identificadores de los datos
 

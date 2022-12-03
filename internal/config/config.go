@@ -10,8 +10,8 @@ import (
 const (
 	SNIIM_ADDR    = "SNIIM_ADDR"    // Base url for the scrapping
 	CATALOGUE_SRC = "CATALOGUE_SRC" // Catalogues directory or db name
-	DEBUG         = "DEBUG"
-	MONGO_URI     = "MONGO_URI"
+	DEBUG         = "DEBUG"         // Flag to define debug mode
+	MONGO_URI     = "MONGO_URI"     // Mongo Database uri
 )
 
 type config struct {

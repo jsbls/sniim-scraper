@@ -24,9 +24,10 @@ func newForm0Inputs() *form0Inputs {
 	week := FormInput{Filter: WeekType, Selector: "ddlSemanaSemanal", UrlParam: "Semana"}
 	month := FormInput{Filter: MonthType, Selector: "ddlMesSemanal", UrlParam: "Mes"}
 	year := FormInput{Filter: YearType, Selector: "ddlAnioSemana", UrlParam: "Anio"}
+	yearq := FormInput{Filter: YearType, Selector: "ddlAnioQuincena", UrlParam: "Anio"}
 
 	return &form0Inputs{
-		inputs: []FormInput{product, origin, destiny, perprice, week, month, year},
+		inputs: []FormInput{product, origin, destiny, perprice, week, month, year, yearq},
 	}
 
 }
