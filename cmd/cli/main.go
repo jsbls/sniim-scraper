@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/everitosan/sniim-scrapper/cmd/cli/consult"
 	"github.com/everitosan/sniim-scrapper/cmd/cli/initial"
 	"github.com/everitosan/sniim-scrapper/cmd/cli/request"
@@ -47,7 +49,22 @@ func main() {
 		Year:              yearRepo,
 	}
 
-	rootCmd := &cobra.Command{Use: "snimm-cli"}
+	rootCmd := &cobra.Command{
+		Use: "snimm-cli",
+		Run: func(cmd *cobra.Command, args []string) {
+			version, _ := cmd.Flags().GetBool("version")
+			if version {
+				fmt.Println(`
+██╗░░░██╗░█████╗░░░░░█████╗░░░░░░███╗░░
+██║░░░██║██╔══██╗░░░██╔══██╗░░░░████║░░
+╚██╗░██╔╝██║░░██║░░░██║░░██║░░░██╔██║░░
+░╚████╔╝░██║░░██║░░░██║░░██║░░░╚═╝██║░░
+░░╚██╔╝░░╚█████╔╝██╗╚█████╔╝██╗███████╗
+░░░╚═╝░░░░╚════╝░╚═╝░╚════╝░╚═╝╚══════╝`)
+			}
+		},
+	}
+	rootCmd.Flags().BoolP("version", "v", false, "Show version of the cli")
 
 	rootCmd.AddCommand(initial.Command(config.SNIIM_ADDR, rContainer))
 	rootCmd.AddCommand(consult.Command(rContainer))
