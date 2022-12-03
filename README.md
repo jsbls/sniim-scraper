@@ -10,13 +10,15 @@ Scrapper para obtener los datos de precios sobre algunos productos como frutos y
 | SNIIM_ADDR | Dirección del sitio fuente de la información | http://www.economia-sniim.gob.mx |
 | CATALOGUE_SRC | Nombre de la base de datos o directorio del  filesystem para guardar los catálogos | SNIIM_DATA |
 | DEBUG | Bandera para habilitar el modo debug | false |
-| MONGO_URI | Dirección de la base de datos mongo, solo se intentará conectar si está presente. | '' |
+| MONGO_URI* | Dirección de la base de datos mongo, solo se intentará conectar si está presente. | '' |
 
+
+\* [TODO](./docs/README.md)
 ## 📦 Instalación
 
 Para realizar una instalación de la herramienta puede visital la página de releases o bien descargar el código fuente y seguir los pasos de [compilación](./docs/Compilation.md).
 
-## 😃 Uso
+## 🍇 Uso
 
 Inicialización
 ---
@@ -25,7 +27,7 @@ El CLI necesita tener los catálogos disponibles para poder operar.
 
 Para esto existe el comando init. 
 
-| > *Carga de catálogos*
+🕹️ *Carga de catálogos.*
 
 ```bash
 sniim-cli init
@@ -39,7 +41,7 @@ Para poder saber el precio de algún artículo en el catálogo debe crearse un r
 
 Para esto puede usar el comando **consult** con la bandera **-c**, esto invocará una serie de preguntas basadas en la categoría y artículo seleccionados.
 
-| > *Crea un registro de consult*
+🕹️ *Crea un registro de consulta.*
 
 ```bash
 sniim-cli consult -c
@@ -51,7 +53,7 @@ sniim-cli consult -c
 
 También podemos enlistar las consultas que tenemos guardadas en registros.
 
-| > Listar las consultas registradas
+🕹️ *Listar las consultas registradas.*
 
 ```bash
 sniim-cli consult -l
@@ -64,7 +66,7 @@ Ejecución de Consultas
 
 Una vez que tengamos consultas registradas, podremos ejecutarlas para al fin ver los resultados de las mismas.
 
-| > *Realiza una consulta*
+🕹️ *Realiza una consulta.*
 
 ```bash
 sniim-cli request -i [índice]
