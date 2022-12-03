@@ -2,6 +2,7 @@ package consult
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/everitosan/sniim-scrapper/internal/transport/repository"
 	"github.com/sirupsen/logrus"
@@ -10,6 +11,7 @@ import (
 
 const createCosultFlag = "create"
 const listCosultFlag = "list"
+const deleteCosultFlag = "delete"
 
 func Command(rContainer repository.Repository) *cobra.Command {
 	consultCommand := &cobra.Command{
@@ -20,6 +22,7 @@ func Command(rContainer repository.Repository) *cobra.Command {
 
 			list, _ := cmd.Flags().GetBool(listCosultFlag)
 			create, _ := cmd.Flags().GetBool(createCosultFlag)
+			delete, _ := cmd.Flags().GetInt16(deleteCosultFlag)
 
 			switch {
 			case list:
@@ -52,6 +55,15 @@ func Command(rContainer repository.Repository) *cobra.Command {
 
 				rContainer.Consult.SaveOne(*consult)
 				return
+			case delete != -1:
+				/*
+				* Delete case
+				 */
+				err := rContainer.Consult.DeleteOne(int(delete))
+				if err != nil {
+					log.Fatal(err)
+				}
+				return
 			}
 
 		},
@@ -59,6 +71,7 @@ func Command(rContainer repository.Repository) *cobra.Command {
 
 	consultCommand.Flags().BoolP(createCosultFlag, "c", false, "Create a consult register")
 	consultCommand.Flags().BoolP(listCosultFlag, "l", false, "List all consults")
+	consultCommand.Flags().Int16P(deleteCosultFlag, "d", -1, "Delete a consult register")
 
 	return consultCommand
 }

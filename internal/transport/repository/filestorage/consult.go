@@ -2,6 +2,7 @@ package filestorage
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -33,6 +34,34 @@ func (pR *consultFileRepository) SaveOne(content consult.Consult) error {
 	}
 
 	all = append(all, content)
+
+	str, err := json.Marshal(all)
+	if err != nil {
+		return err
+	}
+
+	return saveJsonStrToFile(string(str), fileName)
+
+}
+
+func (pR *consultFileRepository) DeleteOne(index int) error {
+	var all []consult.Consult
+	fileName := filepath.Join(pR.dst, pR.fileName+".json")
+
+	all, err := pR.GetAll()
+	if err != nil {
+		all = make([]consult.Consult, 0, 1)
+	}
+
+	allLength := len(all)
+
+	if index > allLength-1 {
+		return fmt.Errorf("invalid index")
+	}
+
+	copy(all[index:], all[index+1:])
+	all[allLength-1] = consult.Consult{}
+	all = all[:allLength-1]
 
 	str, err := json.Marshal(all)
 	if err != nil {

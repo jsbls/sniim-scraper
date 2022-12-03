@@ -8,7 +8,6 @@ La estructura toma como inspiración el siguiente [post.](https://medium.com/gee
 - [Compilación](./Compilation.md)
 
 ### TODO
-- [ ] Eliminar un registro de consulta
 - [ ] Agregar bandera de versión (-v)
 - [ ] Integración con MongoDB
 - [ ] Agregar tests unitarios
