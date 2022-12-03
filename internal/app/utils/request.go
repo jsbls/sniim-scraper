@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/everitosan/snimm-scrapper/internal"
+	"github.com/everitosan/sniim-scrapper/internal"
 	"github.com/gocolly/colly"
 	"github.com/sirupsen/logrus"
 )

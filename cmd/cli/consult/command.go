@@ -3,7 +3,7 @@ package consult
 import (
 	"fmt"
 
-	"github.com/everitosan/snimm-scrapper/internal/transport/repository"
+	"github.com/everitosan/sniim-scrapper/internal/transport/repository"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

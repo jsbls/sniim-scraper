@@ -3,7 +3,7 @@ package consult
 import (
 	_ "embed"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/utils"
+	"github.com/everitosan/sniim-scrapper/internal/app/utils"
 	"github.com/gocolly/colly"
 	"gopkg.in/yaml.v3"
 )

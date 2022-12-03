@@ -3,7 +3,7 @@ package request
 import (
 	"os"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/consult"
+	"github.com/everitosan/sniim-scrapper/internal/app/consult"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/sirupsen/logrus"
 )

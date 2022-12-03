@@ -1,8 +1,8 @@
 package initial
 
 import (
-	"github.com/everitosan/snimm-scrapper/internal/app/scrapper"
-	"github.com/everitosan/snimm-scrapper/internal/transport/repository"
+	"github.com/everitosan/sniim-scrapper/internal/app/scrapper"
+	"github.com/everitosan/sniim-scrapper/internal/transport/repository"
 	"github.com/spf13/cobra"
 )
 

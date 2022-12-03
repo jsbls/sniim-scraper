@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/form"
+	"github.com/everitosan/sniim-scrapper/internal/app/form"
 	"github.com/sirupsen/logrus"
 )
 

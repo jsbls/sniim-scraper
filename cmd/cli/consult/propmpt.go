@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/consult"
+	"github.com/everitosan/sniim-scrapper/internal/app/consult"
 	"github.com/manifoldco/promptui"
 )
 

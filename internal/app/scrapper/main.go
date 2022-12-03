@@ -3,7 +3,7 @@ package scrapper
 import (
 	"log"
 
-	"github.com/everitosan/snimm-scrapper/internal/transport/repository"
+	"github.com/everitosan/sniim-scrapper/internal/transport/repository"
 )
 
 func InitCatalogues(sniimAddr string, rContainer repository.Repository) {

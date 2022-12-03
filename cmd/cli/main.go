@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/everitosan/snimm-scrapper/cmd/cli/consult"
-	"github.com/everitosan/snimm-scrapper/cmd/cli/initial"
-	"github.com/everitosan/snimm-scrapper/cmd/cli/request"
-	"github.com/everitosan/snimm-scrapper/internal/config"
-	"github.com/everitosan/snimm-scrapper/internal/transport/repository"
-	"github.com/everitosan/snimm-scrapper/internal/transport/repository/filestorage"
+	"github.com/everitosan/sniim-scrapper/cmd/cli/consult"
+	"github.com/everitosan/sniim-scrapper/cmd/cli/initial"
+	"github.com/everitosan/sniim-scrapper/cmd/cli/request"
+	"github.com/everitosan/sniim-scrapper/internal/config"
+	"github.com/everitosan/sniim-scrapper/internal/transport/repository"
+	"github.com/everitosan/sniim-scrapper/internal/transport/repository/filestorage"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

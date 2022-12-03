@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/form"
+	"github.com/everitosan/sniim-scrapper/internal/app/form"
 )
 
 type paramsFileRepository struct {

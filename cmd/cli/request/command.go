@@ -3,7 +3,7 @@ package request
 import (
 	_ "embed"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/consult"
+	"github.com/everitosan/sniim-scrapper/internal/app/consult"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

@@ -3,7 +3,7 @@ package form
 import (
 	"strings"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/utils"
+	"github.com/everitosan/sniim-scrapper/internal/app/utils"
 	"github.com/gocolly/colly"
 )
 

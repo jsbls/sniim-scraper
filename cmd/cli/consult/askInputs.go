@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/consult"
-	"github.com/everitosan/snimm-scrapper/internal/app/form"
-	"github.com/everitosan/snimm-scrapper/internal/transport/repository"
+	"github.com/everitosan/sniim-scrapper/internal/app/consult"
+	"github.com/everitosan/sniim-scrapper/internal/app/form"
+	"github.com/everitosan/sniim-scrapper/internal/transport/repository"
 )
 
 func askInputs(rContainer repository.Repository, consult *consult.Consult) bool {

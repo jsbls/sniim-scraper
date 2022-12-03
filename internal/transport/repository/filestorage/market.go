@@ -9,7 +9,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/market"
+	"github.com/everitosan/sniim-scrapper/internal/app/market"
 )
 
 /*

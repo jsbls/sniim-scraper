@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"github.com/everitosan/snimm-scrapper/internal/app/consult"
-	"github.com/everitosan/snimm-scrapper/internal/app/form"
-	"github.com/everitosan/snimm-scrapper/internal/app/market"
+	"github.com/everitosan/sniim-scrapper/internal/app/consult"
+	"github.com/everitosan/sniim-scrapper/internal/app/form"
+	"github.com/everitosan/sniim-scrapper/internal/app/market"
 )
 
 type Repository struct {

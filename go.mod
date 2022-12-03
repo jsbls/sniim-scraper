@@ -1,4 +1,4 @@
-module github.com/everitosan/snimm-scrapper
+module github.com/everitosan/sniim-scrapper
 
 go 1.19
 

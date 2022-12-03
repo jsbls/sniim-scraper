@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/consult"
+	"github.com/everitosan/sniim-scrapper/internal/app/consult"
 )
 
 type consultFileRepository struct {

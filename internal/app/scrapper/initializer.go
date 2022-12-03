@@ -3,10 +3,10 @@ package scrapper
 import (
 	"strings"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/form"
-	"github.com/everitosan/snimm-scrapper/internal/app/market"
-	"github.com/everitosan/snimm-scrapper/internal/app/utils"
-	"github.com/everitosan/snimm-scrapper/internal/transport/repository"
+	"github.com/everitosan/sniim-scrapper/internal/app/form"
+	"github.com/everitosan/sniim-scrapper/internal/app/market"
+	"github.com/everitosan/sniim-scrapper/internal/app/utils"
+	"github.com/everitosan/sniim-scrapper/internal/transport/repository"
 	"github.com/sirupsen/logrus"
 )
 

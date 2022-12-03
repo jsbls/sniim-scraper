@@ -3,8 +3,8 @@ package consult
 import (
 	"log"
 
-	"github.com/everitosan/snimm-scrapper/internal/app/consult"
-	"github.com/everitosan/snimm-scrapper/internal/app/form"
+	"github.com/everitosan/sniim-scrapper/internal/app/consult"
+	"github.com/everitosan/sniim-scrapper/internal/app/form"
 )
 
 func askBreadCrumb(paramsRepo form.ParamsRepository) *consult.Consult {
