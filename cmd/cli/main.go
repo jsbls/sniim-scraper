@@ -67,7 +67,7 @@ func main() {
 	rootCmd.Flags().BoolP("version", "v", false, "Show version of the cli")
 
 	rootCmd.AddCommand(initial.Command(config.SNIIM_ADDR, rContainer))
-	rootCmd.AddCommand(consult.Command(rContainer))
+	rootCmd.AddCommand(consult.Command(config.SNIIM_ADDR, rContainer))
 	rootCmd.AddCommand(request.Command(config.SNIIM_ADDR, rContainer.Consult, rContainer.ConsultResponse))
 	rootCmd.Execute()
 }

@@ -43,3 +43,14 @@ func getDatePrompt(label string) (result string, err error) {
 	return result, err
 
 }
+
+func confirmPropmpt(label string) (res string, err error) {
+	prompt := promptui.Prompt{
+		Label:     label,
+		IsConfirm: true,
+	}
+
+	res, err = prompt.Run()
+
+	return res, err
+}

@@ -37,9 +37,11 @@ sniim-cli init
 Registro de consultas
 ---
 
-Para poder saber el precio de algún artículo en el catálogo debe crearse un registro de consulta.   
+Para poder saber el precio de algún artículo, podemos crear una consulta. 
 
-Para esto puede usar el comando **consult** con la bandera **-c**, esto invocará una serie de preguntas basadas en la categoría y artículo seleccionados.
+El comando **consult** con la bandera **-c** ó **--create** invocará una serie de preguntas basadas en la categoría y artículo seleccionados.
+
+Si deseamos guardar esa consulta para volver a ejecutarla posteriormente, podemos agregar la bandera **-s** ó **--save**.
 
 🕹️ *Crea un registro de consulta.*
 
@@ -48,10 +50,10 @@ sniim-cli consult -c
 ```
 ![](./docs/img/consult--create.png)
 
-> *Nota:  
+> 📝 Nota:  
 *Al usar la palabra reservada **now**, estaremos indicando que la fecha de interés será la fecha en la que se ejecute la petición con el comando **request**.*
 
-También podemos enlistar las consultas que tenemos guardadas en registros.
+También podemos mostarr una lista de las consultas que tenemos guardadas en registros.
 
 🕹️ *Listar las consultas registradas.*
 
@@ -64,7 +66,7 @@ sniim-cli consult -l
 Ejecución de Consultas
 ---
 
-Una vez que tengamos consultas registradas, podremos ejecutarlas para al fin ver los resultados de las mismas.
+Si deseamos repetir alguna de las consultas guardadas, podemos usar el comando request.
 
 🕹️ *Realiza una consulta.*
 
@@ -74,5 +76,5 @@ sniim-cli request -i [índice]
 
 ![](./docs/img/request--index.png)
 
-> *Nota:  
+> 📝 Nota:  
 ***-s** Es una bandera opcional que se puede agregar al comando de request para guardar en resultado obtenido en lugar de mostrarlo en la consola*
