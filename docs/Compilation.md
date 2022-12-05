@@ -1,11 +1,18 @@
 ## 🏗️ Compilación
 
-Gracias a que el proyecto esta desarrollado con Go lang podemos compilar y generar un binario para cualquier plataforma y arquitectura.
 
-- Compilación para el sistema base.
+## Uniplataforma
+
+
+Compilación para el sistema base.
   ```bash
   go build -o sniim-cli ./cmd/cli/main.go
   ```
+
+## Multiplataforma
+
+Adicionalmente, gracias a que el proyecto esta desarrollado con Go lang podemos compilar y generar un binario para cualquier plataforma y arquitectura, sin embargo para crear paquetes de distribución es preferible usar go releaser como se describe en la sección de [Releases](./Release.md).
+
 
 - Compilación Linux 🐧
   ```bash
