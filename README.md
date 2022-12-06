@@ -16,7 +16,40 @@ Scrapper para obtener los datos de precios sobre algunos productos como frutos y
 \* [TODO](./docs/README.md)
 ## 📦 Instalación
 
-Para realizar una instalación de la herramienta puede visital la página de releases o bien descargar el código fuente y seguir los pasos de [compilación](./docs/Compilation.md).
+Para realizar una instalación de la herramienta puede visitar la [página de releases](https://github.com/everitosan/sniim-scrapper/releases) o bien descargar el código fuente y seguir los pasos de [compilación](./docs/Compilation.md).
+
+Si decide usar una versión [precompilada]((https://github.com/everitosan/sniim-scrapper/releases)), una vez que descargue el archivo debe descomprimir el archivo .tar.gz
+
+<br>
+
+*🐧 Ejemplo en Linux*
+```bash
+# Descomprimir con tar
+$ tar -xf sniim-scrapper_0.0.1_Linux_arm64.tar.gz
+
+# Ejecución de prueba
+$ ./sniim-cli -h                        
+Usage:
+  snimm-cli [flags]
+  snimm-cli [command]
+
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  consult     Manage consults
+  help        Help about any command
+  init        Create catalogues
+  request     Request information
+
+Flags:
+  -h, --help      help for snimm-cli
+  -v, --version   Show version of the cli
+
+Use "snimm-cli [command] --help" for more information about a command.
+
+```
+
+
+
 
 ## 🍇 Uso
 

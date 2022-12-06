@@ -10,3 +10,4 @@
 ### TODO
 - [ ] Integración con MongoDB
 - [ ] Agregar tests unitarios
+- [ ] Agregar documentación de arquitectura
