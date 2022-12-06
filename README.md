@@ -53,7 +53,7 @@ sniim-cli consult -c
 > 📝 Nota:  
 *Al usar la palabra reservada **now**, estaremos indicando que la fecha de interés será la fecha en la que se ejecute la petición con el comando **request**.*
 
-También podemos mostarr una lista de las consultas que tenemos guardadas en registros.
+También podemos mostar una lista de las consultas que tenemos guardadas en registros.
 
 🕹️ *Listar las consultas registradas.*
 
