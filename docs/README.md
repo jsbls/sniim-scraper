@@ -1,9 +1,9 @@
-# SNIIM Scrapper
+# SNIIM Scraper
 
 ## 👩‍🏭 Documentación de desarrollo. 👨‍🏭
 
 
-- [Arquitectura](./Arquitecture.md)
+- [Arquitectura](./Architecture.md)
 - [Compilación](./Compilation.md)
 - [Releases](./Release.md)
 

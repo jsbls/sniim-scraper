@@ -9,17 +9,17 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type marketScrapper struct {
+type marketScraper struct {
 	sourceAddress string
 }
 
-func NewMarketScrapper(baseUrl string) *marketScrapper {
-	return &marketScrapper{
+func NewMarketScraper(baseUrl string) *marketScraper {
+	return &marketScraper{
 		sourceAddress: baseUrl + "/nuevo/mapa.asp",
 	}
 }
 
-func (mrktScrapper *marketScrapper) request(okChan chan []Market, errChan chan error) {
+func (mrktScraper *marketScraper) request(okChan chan []Market, errChan chan error) {
 	c := colly.NewCollector()
 
 	markets := make([]Market, 0)
@@ -123,18 +123,18 @@ func (mrktScrapper *marketScrapper) request(okChan chan []Market, errChan chan e
 		errChan <- msg
 	})
 
-	logrus.Printf("🍱 Scrapping Markets %s", mrktScrapper.sourceAddress)
-	c.Visit(mrktScrapper.sourceAddress)
+	logrus.Printf("🍱 Scrapping Markets %s", mrktScraper.sourceAddress)
+	c.Visit(mrktScraper.sourceAddress)
 
 }
 
-func (mrktScrapper *marketScrapper) RequestFromSource() ([]Market, error) {
+func (mrktScraper *marketScraper) RequestFromSource() ([]Market, error) {
 	markets := make([]Market, 0)
 
 	responseOk := make(chan []Market)
 	responseErr := make(chan error)
 
-	go mrktScrapper.request(responseOk, responseErr)
+	go mrktScraper.request(responseOk, responseErr)
 
 	select {
 	case err := <-responseErr:

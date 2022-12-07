@@ -8,7 +8,7 @@ import (
 )
 
 /*
-* Form0Scrapper is based in md docs
+* Form0Scraper is based in md docs
  */
 
 type form0Inputs struct {
@@ -48,7 +48,7 @@ var months = map[string]string{
 	"diciembre":  "12",
 }
 
-func From0Srapper(container *colly.HTMLElement, keys []string, f *FormScrapper) {
+func From0Scraper(container *colly.HTMLElement, keys []string, f *FormScraper) {
 
 	form0 := newForm0Inputs()
 

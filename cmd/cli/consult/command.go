@@ -68,7 +68,7 @@ func Command(sniiimAddr string, rContainer repository.Repository) *cobra.Command
 				if save {
 					rContainer.Consult.SaveOne(*newConsult)
 				} else {
-					res, err := confirmPropmpt("¿Desea guardar la consulta?")
+					res, err := confirmPrompt("¿Desea guardar la consulta?")
 					if err != nil {
 						logrus.Fatal(err)
 					}

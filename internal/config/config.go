@@ -24,13 +24,13 @@ type config struct {
 func LoadConfig() *config {
 	err := godotenv.Load()
 	if err != nil {
-		logrus.Warn("No .env file dected")
+		logrus.Warn("⚠️ Warning: No .env file detected")
 	}
 
 	// Read snim address
-	snimmAddr := os.Getenv(SNIIM_ADDR)
-	if snimmAddr == "" {
-		snimmAddr = "http://www.economia-sniim.gob.mx"
+	sniimAddr := os.Getenv(SNIIM_ADDR)
+	if sniimAddr == "" {
+		sniimAddr = "http://www.economia-sniim.gob.mx"
 	}
 
 	// Read Catalogues dir
@@ -46,7 +46,7 @@ func LoadConfig() *config {
 	mongoUri := os.Getenv(MONGO_URI)
 
 	return &config{
-		SNIIM_ADDR:    snimmAddr,
+		SNIIM_ADDR:    sniimAddr,
 		CATALOGUE_SRC: catalogueDir,
 		DEBUG:         isDebug,
 		MONGO_URI:     mongoUri,

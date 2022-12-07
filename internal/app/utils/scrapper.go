@@ -6,6 +6,6 @@ import (
 
 const KeyCatalogueSeparator = "-"
 
-type FilterScrapper interface {
+type FilterScraper interface {
 	Extract(string, *colly.HTMLElement, string) // should search by selector
 }

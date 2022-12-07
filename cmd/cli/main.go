@@ -50,7 +50,7 @@ func main() {
 	}
 
 	rootCmd := &cobra.Command{
-		Use: "snimm-cli",
+		Use: "sniim-cli",
 		Run: func(cmd *cobra.Command, args []string) {
 			version, _ := cmd.Flags().GetBool("version")
 			if version {
