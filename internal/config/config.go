@@ -24,7 +24,7 @@ type config struct {
 func LoadConfig() *config {
 	err := godotenv.Load()
 	if err != nil {
-		logrus.Warn("⚠️ Warning: No .env file detected")
+		logrus.Warn("⚠️ No .env file detected")
 	}
 
 	// Read snim address
