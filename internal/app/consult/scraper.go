@@ -56,7 +56,7 @@ func Scrap(sniimAddr string, consult Consult) ([][]RegisterConcept, error) {
 
 		switch tableId {
 		case "tblResultados":
-			registers = Table0Scrapper(table, consult)
+			registers = Table0Scraper(table, consult)
 		}
 	})
 
