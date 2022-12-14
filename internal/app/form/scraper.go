@@ -19,18 +19,18 @@ const (
 * when finishes, every type represents a single input in the form
  */
 
-type FormScrapper struct {
+type FormScraper struct {
 	Inputs inputContainer // help to store all available options of a select
 	Params FormParams     // Parametrs found in the form based in readme
 }
 
-func NewFormScrapper() *FormScrapper {
-	return &FormScrapper{
+func NewFormScraper() *FormScraper {
+	return &FormScraper{
 		Inputs: *NewInputContainer(),
 	}
 }
 
-func (f *FormScrapper) GetFormInputs(html *colly.HTMLElement, keyJoined string) {
+func (f *FormScraper) GetFormInputs(html *colly.HTMLElement, keyJoined string) {
 	html.ForEach("table", func(_ int, table *colly.HTMLElement) {
 		tableId := table.Attr("id")
 		keys := strings.Split(keyJoined, utils.KeyCatalogueSeparator)
@@ -38,10 +38,10 @@ func (f *FormScrapper) GetFormInputs(html *colly.HTMLElement, keyJoined string) 
 		switch tableId {
 		case "tblDatos":
 			f.Params = *NewFormParams(keys, Form0Type)
-			From0Srapper(table, keys, f)
+			From0Scraper(table, keys, f)
 		case "tblFiltro":
 			f.Params = *NewFormParams(keys, Form0Type)
-			From0Srapper(table, keys, f)
+			From0Scraper(table, keys, f)
 		}
 	})
 }

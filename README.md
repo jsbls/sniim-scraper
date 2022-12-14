@@ -1,6 +1,6 @@
-# SNIIM Scrapper
+# SNIIM Scraper
 
-Scrapper para obtener los datos de precios sobre algunos productos como frutos y carnes en México.
+Scraper para obtener los datos de precios sobre algunos productos como frutos y carnes en México.
 
 
 ## 📄 Variables de entorno
@@ -25,13 +25,13 @@ Si decide usar una versión [precompilada]((https://github.com/everitosan/sniim-
 *🐧 Ejemplo en Linux*
 ```bash
 # Descomprimir con tar
-$ tar -xf sniim-scrapper_0.0.1_Linux_arm64.tar.gz
+$ tar -xf sniim-scraper_0.0.1_Linux_arm64.tar.gz
 
 # Ejecución de prueba
 $ ./sniim-cli -h                        
 Usage:
-  snimm-cli [flags]
-  snimm-cli [command]
+  sniim-cli [flags]
+  sniim-cli [command]
 
 Available Commands:
   completion  Generate the autocompletion script for the specified shell
@@ -41,10 +41,10 @@ Available Commands:
   request     Request information
 
 Flags:
-  -h, --help      help for snimm-cli
+  -h, --help      help for sniim-cli
   -v, --version   Show version of the cli
 
-Use "snimm-cli [command] --help" for more information about a command.
+Use "sniim-cli [command] --help" for more information about a command.
 
 ```
 

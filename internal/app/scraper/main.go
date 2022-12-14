@@ -1,4 +1,4 @@
-package scrapper
+package scraper
 
 import (
 	"log"
@@ -9,7 +9,7 @@ import (
 func InitCatalogues(sniimAddr string, rContainer repository.Repository) {
 
 	// Retrieve and save with repositories
-	err := GetCatlogues(sniimAddr, rContainer)
+	err := GetCatalogues(sniimAddr, rContainer)
 
 	if err != nil {
 		log.Fatal(err)

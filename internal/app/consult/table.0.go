@@ -13,7 +13,7 @@ func RegisterToMap(registers []RegisterConcept) map[string]string {
 	return result
 }
 
-func Table0Scrapper(table *colly.HTMLElement, consult Consult) [][]RegisterConcept {
+func Table0Scraper(table *colly.HTMLElement, consult Consult) [][]RegisterConcept {
 	headers := make([]string, 0)
 	rows := make([][]RegisterConcept, 0)
 

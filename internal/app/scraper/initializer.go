@@ -1,4 +1,4 @@
-package scrapper
+package scraper
 
 import (
 	"strings"
@@ -10,12 +10,12 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func GetCatlogues(baseUrl string, repo repository.Repository) error {
+func GetCatalogues(baseUrl string, repo repository.Repository) error {
 
 	markets, err := repo.Market.GetAll()
 
 	if err != nil || len(markets) == 0 {
-		mS := market.NewMarketScrapper(baseUrl)
+		mS := market.NewMarketScraper(baseUrl)
 		markets, err = mS.RequestFromSource()
 		if err != nil {
 			return err
@@ -25,7 +25,7 @@ func GetCatlogues(baseUrl string, repo repository.Repository) error {
 		logrus.Printf("%d Markets detected in storage, request is avoid", len(markets))
 	}
 
-	okChan := make(chan *form.FormScrapper)
+	okChan := make(chan *form.FormScraper)
 	errorChan := make(chan error)
 
 	routines := 0
@@ -51,12 +51,12 @@ func GetCatlogues(baseUrl string, repo repository.Repository) error {
 		select {
 		case err := <-errorChan:
 			logrus.Warn(err)
-		case formScrapper := <-okChan:
-			for selectType, options := range formScrapper.Inputs.GetInputs() {
+		case formScraper := <-okChan:
+			for selectType, options := range formScraper.Inputs.GetInputs() {
 				inputs.AddOptions(selectType, options)
 			}
-			if formScrapper.Params.Params != nil {
-				params = append(params, formScrapper.Params)
+			if formScraper.Params.Params != nil {
+				params = append(params, formScraper.Params)
 			}
 			// fmt.Printf("\r %d of %d", routinesCount+1, routines)
 		}
@@ -91,21 +91,21 @@ func GetCatlogues(baseUrl string, repo repository.Repository) error {
 func request(
 	baseUrl string,
 	cat market.Catergory,
-	okChan chan *form.FormScrapper,
+	okChan chan *form.FormScraper,
 	errorChan chan error,
 	keys []string,
 ) {
 	req := utils.NewRequester(baseUrl)
 	for _, subCat := range cat.SubCategories {
-		formScrapper := form.NewFormScrapper()
+		formScraper := form.NewFormScraper()
 		key := append(keys, subCat.Name)
 		html, err := req.SyncR(subCat.Url)
 
 		if err != nil {
 			errorChan <- err
 		} else {
-			formScrapper.GetFormInputs(html, strings.Join(key, utils.KeyCatalogueSeparator))
-			okChan <- formScrapper
+			formScraper.GetFormInputs(html, strings.Join(key, utils.KeyCatalogueSeparator))
+			okChan <- formScraper
 		}
 
 	}

@@ -1,4 +1,5 @@
-SNIIM_DATA
+.DS_Store
 .env
+SNIIM_DATA
 sniim-cli
 dist/
