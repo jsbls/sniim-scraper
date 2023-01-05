@@ -10,19 +10,19 @@ import (
 func askBreadCrumb(paramsRepo form.ParamsRepository) *consult.Consult {
 	// Ask for categories
 	categories, _ := paramsRepo.GetCategories()
-	_, categoryChoosen, err := getOptionsPrompt("Selecciona unacategoría", categories)
+	_, categoryChosen, err := getOptionsPrompt("Selecciona una categoría", categories)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Ask for subcategories
-	subcats, _ := paramsRepo.GetSubCategories(categoryChoosen)
-	_, subCategoryChoosen, err := getOptionsPrompt("Selecciona una subcategoría", subcats)
+	subcats, _ := paramsRepo.GetSubCategories(categoryChosen)
+	_, subCategoryChosen, err := getOptionsPrompt("Selecciona una subcategoría", subcats)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	consult := consult.NewConsult(categoryChoosen, subCategoryChoosen)
+	consult := consult.NewConsult(categoryChosen, subCategoryChosen)
 
 	return consult
 }

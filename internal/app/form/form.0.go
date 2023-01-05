@@ -19,7 +19,7 @@ func newForm0Inputs() *form0Inputs {
 
 	product := FormInput{Filter: ProductType, Selector: "ddlProducto", UrlParam: "ProductoId"}
 	origin := FormInput{Filter: OriginType, Selector: "ddlOrigen", UrlParam: "OrigenId"}
-	destiny := FormInput{Filter: DestinyType, Selector: "ddlDestino", UrlParam: "DestinoId"}
+	destination := FormInput{Filter: DestinationType, Selector: "ddlDestino", UrlParam: "DestinoId"}
 	perprice := FormInput{Filter: PerPriceType, Selector: "ddlPrecios", UrlParam: "PreciosPorId"}
 	week := FormInput{Filter: WeekType, Selector: "ddlSemanaSemanal", UrlParam: "Semana"}
 	month := FormInput{Filter: MonthType, Selector: "ddlMesSemanal", UrlParam: "Mes"}
@@ -27,7 +27,7 @@ func newForm0Inputs() *form0Inputs {
 	yearq := FormInput{Filter: YearType, Selector: "ddlAnioQuincena", UrlParam: "Anio"}
 
 	return &form0Inputs{
-		inputs: []FormInput{product, origin, destiny, perprice, week, month, year, yearq},
+		inputs: []FormInput{product, origin, destination, perprice, week, month, year, yearq},
 	}
 
 }

@@ -3,13 +3,13 @@ package form
 type SelectCategory string
 
 const (
-	ProductType  SelectCategory = "Producto"
-	OriginType   SelectCategory = "Origen"
-	DestinyType  SelectCategory = "Destino"
-	PerPriceType SelectCategory = "Precio por"
-	WeekType     SelectCategory = "Semana"
-	MonthType    SelectCategory = "Mes"
-	YearType     SelectCategory = "Año"
+	ProductType      SelectCategory = "Producto"
+	OriginType       SelectCategory = "Origen"
+	DestinationType  SelectCategory = "Destino"
+	PerPriceType     SelectCategory = "Precio por"
+	WeekType         SelectCategory = "Semana"
+	MonthType        SelectCategory = "Mes"
+	YearType         SelectCategory = "Año"
 )
 
 type inputContainer struct {

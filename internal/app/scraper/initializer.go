@@ -70,8 +70,8 @@ func GetCatalogues(baseUrl string, repo repository.Repository) error {
 		switch selectType {
 		case form.ProductType:
 			repo.Product.Save(options)
-		case form.DestinyType:
-			repo.ProductDestiny.Save(options)
+		case form.DestinationType:
+			repo.ProductDestination.Save(options)
 		case form.OriginType:
 			repo.ProductSource.Save(options)
 		case form.PerPriceType:

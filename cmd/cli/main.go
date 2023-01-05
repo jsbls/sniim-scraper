@@ -29,7 +29,7 @@ func main() {
 
 	productRepo, _ := filestorage.NewProductFileRepository(config.CATALOGUE_SRC, "product")
 	productSourceRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "productSource")
-	productDestinyRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "productDestiny")
+	productDestinationRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "productDestination")
 	pricePresentationRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "pricePresentation")
 	weekRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "week")
 	monthRepo, _ := filestorage.NewOptionSelectFileRepository(config.CATALOGUE_SRC, "month")
@@ -42,7 +42,7 @@ func main() {
 		ConsultResponse:   consultResponseRepo,
 		Product:           productRepo,
 		ProductSource:     productSourceRepo,
-		ProductDestiny:    productDestinyRepo,
+		ProductDestination:    productDestinationRepo,
 		PricePresentation: pricePresentationRepo,
 		Week:              weekRepo,
 		Month:             monthRepo,
